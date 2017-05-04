@@ -33,80 +33,13 @@
 	<script src="./assets/js/vendor/underscore.js"></script>
 	<script src="./assets/js/vendor/backbone.js"></script>
 	<script src="./assets/js/vendor/backbone.marionette.js"></script>
+	<script src="./assets/js/app.js"></script>
+	<script src="./assets/js/entities/contact.js"></script>
+	<script src="./assets/js/apps/contacts/list/list_view.js"></script>
+	<script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+	<script src="./assets/js/apps/contacts/list/list_template.js"></script>
 
 	<script type="text/javascript">
-		const ContactManager = new Marionette.Application();
-
-		ContactManager.Contact = Backbone.Model.extend({
-		});
-
-		ContactManager.ContactCollection = Backbone.Collection.extend({
-			model: ContactManager.Contact,
-			comparator: function(contact) {
-				return contact.get("firstName") + " " + contact.get("lastName");
-			}
-		});
-
-		ContactManager.ContactItemView = Marionette.ItemView.extend({
-			tagName: "li",
-			template: "#contact-list-item"
-		});
-
-		ContactManager.ContactsView = Marionette.CollectionView.extend({
-			tagName: "ul",
-			childView: ContactManager.ContactItemView
-		});
-
-		ContactManager.on("before:start", function(){
-			const	RegionContainer = Marionette.LayoutView.extend({
-				el: "#app-container",
-				regions: {
-					main: "#main-region"
-				}
-			});
-			ContactManager.regions = new RegionContainer();
-		});
-
-		ContactManager.on("start", function(){
-			const contacts = new ContactManager.ContactCollection([
-				{
-					firstName: "Bob",
-					lastName: "Brigham",
-					phoneNumber: "555-4444"
-				},
-				{
-					firstName: "Alice",
-					lastName: "Arten",
-					phoneNumber: "555-5555"
-				},
-				{
-					firstName: "Charlie",
-					lastName: "Campbell",
-					phoneNumber: "555-6666"
-				},
-				{
-					firstName: "Alice",
-					lastName: "Tampen",
-					phoneNumber: "555-1111"
-				},
-				{
-					firstName: "Alice",
-					lastName: "Artsy",
-					phoneNumber: "555-2222"
-				},
-				{
-					firstName: "Alice",
-					lastName: "Smith",
-					phoneNumber: "555-3333"
-				}
-			]);
-
-			const contactsListView = new ContactManager.ContactsView({
-				collection: contacts
-			});
-			ContactManager.regions.main.show(contactsListView);
-		});
-
 		ContactManager.start();
 	</script>
 
