@@ -4,19 +4,17 @@ ContactManager.module('ContactsApp.List', (List, ContactManager, Backbone, Mario
 		template: '#contact-list-item',
 		events: {
 			'click': 'highlightName',
-			// Exercise
-			// 'click td': 'alertCellText'
+			'click td a.js-show': 'showClicked',
 			'click button.js-delete': 'deleteClicked'
 		},
 		highlightName(e) {
 			this.$el.toggleClass('warning');
-			// Exercise
-			// this.trigger('contact:warning', this.model);
 		},
-		// Exercise
-		// alertCellText(e) {
-		// 	alert($(e.target).text());
-		// },
+		showClicked(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			this.trigger('contact:show', this.model);
+		},
 		deleteClicked(e) {
 			e.stopPropagation();
 			this.trigger('contact:delete', this.model);

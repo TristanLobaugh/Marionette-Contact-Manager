@@ -7,14 +7,13 @@ ContactManager.module('ContactsApp.List', (List, ContactManager, Backbone, Mario
 				collection: contacts
 			});
 
-			contactsListView.on('childview:contact:delete', (childview, model) => {
+			contactsListView.on('childview:contact:delete', (childView, model) => {
 				contacts.remove(model);
 			});
 
-			// Exercise
-			// contactsListView.on('childview:contact:warning', (childview, model) => {
-			// 	console.log('Highlighting toggled on model: ', model);
-			// });
+			contactsListView.on('childview:contact:show', (childView, model) => {
+				ContactManager.ContactsApp.Show.Controller.showContact(model);
+			});
 
 			ContactManager.regions.main.show(contactsListView);
 		}
