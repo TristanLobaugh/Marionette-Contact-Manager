@@ -12,7 +12,7 @@ ContactManager.module('ContactsApp.List', (List, ContactManager, Backbone, Mario
 			});
 
 			contactsListView.on('childview:contact:show', (childView, model) => {
-				ContactManager.ContactsApp.Show.Controller.showContact(model);
+				ContactManager.trigger('contact:show', model.get('id'));
 			});
 
 			ContactManager.regions.main.show(contactsListView);

@@ -1,5 +1,13 @@
 const ContactManager = new Marionette.Application();
 
+ContactManager.navigate = (route, options) => {
+	options || (options = {});
+	Backbone.history.navigate(route, options);
+};
+
+ContactManager.getCurrentRoute = () => Backbone.history.fragment;
+
+
 ContactManager.on('before:start', () => {
 	const	RegionContainer = Marionette.LayoutView.extend({
 		el: '#app-container',
@@ -10,6 +18,11 @@ ContactManager.on('before:start', () => {
 	ContactManager.regions = new RegionContainer();
 });
 
-ContactManager.on('start', () => {
-	ContactManager.ContactsApp.List.Controller.listContacts();
+ContactManager.on('start', function() {
+	if (Backbone.history) {
+		Backbone.history.start();
+		if (this.getCurrentRoute() === '') {
+			ContactManager.trigger('contacts:list');
+		}
+	}
 });

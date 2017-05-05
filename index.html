@@ -28,7 +28,7 @@
 		<td><%= firstName %></td>
 		<td><%= lastName %></td>
 		<td>
-			<a href="#" class="btn btn-default btn-sm js-show"><i class="glyphicon glyphicon-eye-open"></i> Show</a>
+			<a href="#contacts/<%= id %>" class="btn btn-default btn-sm js-show"><i class="glyphicon glyphicon-eye-open"></i> Show</a>
 			<button class="btn btn-default btn-sm js-delete"><i class="glyphicon glyphicon-remove"></i> Delete</button>	
 		</td>
 	</script>
@@ -59,6 +59,7 @@
 	<script src="./assets/js/app.js"></script>
 	<script src="./assets/js/entities/contact.js"></script>
 
+	<script src="./assets/js/apps/contacts/contacts_app.js"></script>
 	<script src="./assets/js/apps/contacts/list/list_view.js"></script>
 	<script src="./assets/js/apps/contacts/list/list_controller.js"></script>
 	<script src="./assets/js/apps/contacts/list/list_template.js"></script>
