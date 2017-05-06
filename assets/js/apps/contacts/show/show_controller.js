@@ -3,9 +3,14 @@ ContactManager.module('ContactsApp.Show', (Show, ContactManager, Backbone, Mario
 		showContact(id) {
 			const contacts = ContactManager.request('contact:entities');
 			const model = contacts.get(id);
-			const contactView = new Show.Contact({
-				model
-			});
+			let contactView;
+			if (model !== undefined) {
+				contactView = new Show.Contact({
+					model
+				});
+			} else {
+				contactView = new Show.MissingContact();
+			}
 			ContactManager.regions.main.show(contactView);
 		}
 	};
