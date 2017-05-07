@@ -1,18 +1,21 @@
 ContactManager.module('Entities', (Entities, ContactManager, Backbone, Marionette, $, _) => {
-	Entities.Contact = Backbone.Model.extend({});
-
-	Entities.ContactCollection = Backbone.Collection.extend({
-		model: Entities.Contact,
-		comparator(contact) {
-			return `${contact.get('firstName')} ${contact.get('lastName')}`;
-		}
+	Entities.Contact = Backbone.Model.extend({
+		urlRoot: 'contacts'
 	});
 
+	Entities.configureStorage('ContactManager.Entities.Contact');
 
-	let contacts;
+	Entities.ContactCollection = Backbone.Collection.extend({
+		url: 'contacts',
+		model: Entities.Contact,
+		comparator: 'firstName'
+	});
+
+	Entities.configureStorage('ContactManager.Entities.ContactCollection');
 
 	const initializeContacts = () => {
-		contacts = new Entities.ContactCollection([
+		console.log('running init');
+		const contacts = new Entities.ContactCollection([
 			{
 				id: 1,
 				firstName: 'Bobby',
@@ -50,17 +53,48 @@ ContactManager.module('Entities', (Entities, ContactManager, Backbone, Marionett
 				phoneNumber: '555-3333'
 			}
 		]);
+		contacts.forEach(contact => {
+			contact.save();
+		});
+		return contacts.models;
 	};
 
 	const API = {
 		getContactEntities() {
-			if (contacts === undefined) {
-				initializeContacts();
-			}
-			return contacts;
+			const contacts = new Entities.ContactCollection();
+			const defer = $.Deferred();
+			contacts.fetch({
+				success(data) {
+					defer.resolve(data);
+				}
+			});
+			const promise = defer.promise();
+			$.when(promise).done(fetchedContacts => {
+				if (contacts.length === 0) {
+					const models = initializeContacts();
+					contacts.reset(models);
+				}
+			});
+			return promise;
+		},
+		getContactEntity(contactId) {
+			const contact = new Entities.Contact({ id: contactId });
+			const defer = $.Deferred();
+			setTimeout(() => {
+				contact.fetch({
+					success(data) {
+						defer.resolve(data);
+					},
+					error(data) {
+						defer.resolve(undefined);
+					}
+				});
+			}, 2000);
+			return defer.promise();
 		}
 	};
 
-	ContactManager.reqres.setHandler('contact:entities', () => API.getContactEntities());
-});
 
+	ContactManager.reqres.setHandler('contact:entities', () => API.getContactEntities());
+	ContactManager.reqres.setHandler('contact:entity', id => API.getContactEntity(id));
+});

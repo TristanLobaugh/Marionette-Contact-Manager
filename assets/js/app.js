@@ -1,4 +1,4 @@
-const ContactManager = new Marionette.Application();
+var ContactManager = new Marionette.Application();
 
 ContactManager.navigate = (route, options) => {
 	options || (options = {});
