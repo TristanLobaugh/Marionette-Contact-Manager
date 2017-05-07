@@ -2,7 +2,8 @@ ContactManager.module('ContactsApp', (ContactsApp, ContactManager, Backbone, Mar
 	ContactsApp.Router = Marionette.AppRouter.extend({
 		appRoutes: {
 			'contacts': 'listContacts',
-			'contacts/:id': 'showContact'
+			'contacts/:id': 'showContact',
+			'contacts/:id/edit': 'editContact'
 		}
 	});
 
@@ -12,6 +13,9 @@ ContactManager.module('ContactsApp', (ContactsApp, ContactManager, Backbone, Mar
 		},
 		showContact(id) {
 			ContactsApp.Show.Controller.showContact(id);
+		},
+		editContact(id) {
+			ContactsApp.Edit.Controller.editContact(id);
 		}
 	};
 
@@ -23,6 +27,11 @@ ContactManager.module('ContactsApp', (ContactsApp, ContactManager, Backbone, Mar
 	ContactManager.on('contact:show', id => {
 		ContactManager.navigate(`contacts/${id}`);
 		API.showContact(id);
+	});
+
+	ContactManager.on('contact:edit', id => {
+		ContactManager.navigate(`contacts/${id}/edit`);
+		API.editContact(id);
 	});
 
 

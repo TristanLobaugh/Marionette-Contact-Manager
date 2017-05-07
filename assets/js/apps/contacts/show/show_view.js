@@ -4,6 +4,13 @@ ContactManager.module('ContactsApp.Show', (Show, ContactManager, Backbone, Mario
 	});
 
 	Show.Contact = Marionette.ItemView.extend({
-		template: '#contact-view'
+		template: '#contact-view',
+		events: {
+			'click a.js-edit': 'editClicked'
+		},
+		editClicked(e) {
+			e.preventDefault();
+			this.trigger('contact:edit', this.model);
+		}
 	});
 });
