@@ -1,6 +1,22 @@
 ContactManager.module('Entities', (Entities, ContactManager, Backbone, Marionette, $, _) => {
 	Entities.Contact = Backbone.Model.extend({
-		urlRoot: 'contacts'
+		urlRoot: 'contacts',
+		validate(attrs, options) {
+			const errors = {};
+			if (!attrs.firstName) {
+				errors.firstName = 'Can\'t be blank!';
+			}
+			if (!attrs.lastName) {
+				errors.lastName = 'Can\'t be blank!';
+			} else {
+				if (attrs.lastName.length < 2) {
+					errors.lastName = 'Is too short';
+				}
+			}
+			if (!_.isEmpty(errors)) {
+				return errors;
+			}
+		}
 	});
 
 	Entities.configureStorage('ContactManager.Entities.Contact');

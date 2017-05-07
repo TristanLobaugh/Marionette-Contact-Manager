@@ -16,8 +16,11 @@ ContactManager.module('ContactsApp.Edit', (Edit, ContactManager, Backbone, Mario
 					});
 
 					view.on('form:submit', data => {
-						contact.save(data);
-						ContactManager.trigger('contact:show', contact.get('id'));
+						if (contact.save(data)) {
+							ContactManager.trigger('contact:show', contact.get('id'));
+						} else {
+							view.triggerMethod('form:data:invalid', contact.validationError);
+						}
 					});
 				} else {
 					view = new ContactManager.ContactsApp.Show.MissingContact();
