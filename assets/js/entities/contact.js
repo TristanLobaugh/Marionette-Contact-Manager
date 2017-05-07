@@ -70,7 +70,7 @@ ContactManager.module('Entities', (Entities, ContactManager, Backbone, Marionett
 			});
 			const promise = defer.promise();
 			$.when(promise).done(fetchedContacts => {
-				if (contacts.length === 0) {
+				if (fetchedContacts.length === 0) {
 					const models = initializeContacts();
 					contacts.reset(models);
 				}

@@ -1,6 +1,14 @@
 ContactManager.module('Common.Views', (Views, ContactManager, Backbone, Marionette, $, _) => {
 	Views.Loading = Marionette.ItemView.extend({
 		template: '#loading-view',
+		title: 'Loading Data',
+		message: 'Please wait, data is loading.',
+		serializeData() {
+			return {
+				title: Marionette.getOption(this, 'title'),
+				message: Marionette.getOption(this, 'message')
+			};
+		},
 		onShow() {
 			const opts = {
 				lines: 13,

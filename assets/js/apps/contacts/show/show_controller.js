@@ -1,7 +1,10 @@
 ContactManager.module('ContactsApp.Show', (Show, ContactManager, Backbone, Marionette, $, _) => {
 	Show.Controller = {
 		showContact(id) {
-			const loadingView = new ContactManager.Common.Views.Loading();
+			const loadingView = new ContactManager.Common.Views.Loading({
+				title: 'Artificial Loading Delay',
+				message: 'Data loading is delayed to demonstrate using a loading view.'
+			});
 			ContactManager.regions.main.show(loadingView);
 
 			const fetchingContact = ContactManager.request('contact:entity', id);
