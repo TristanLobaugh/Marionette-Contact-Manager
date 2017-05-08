@@ -12,7 +12,8 @@ ContactManager.on('before:start', () => {
 	const	RegionContainer = Marionette.LayoutView.extend({
 		el: '#app-container',
 		regions: {
-			main: '#main-region'
+			main: '#main-region',
+			dialog: '#dialog-region'
 		}
 	});
 	ContactManager.regions = new RegionContainer();
