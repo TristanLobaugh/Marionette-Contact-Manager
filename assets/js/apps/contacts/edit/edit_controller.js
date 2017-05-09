@@ -12,7 +12,8 @@ ContactManager.module('ContactsApp.Edit', (Edit, ContactManager, Backbone, Mario
 				let view;
 				if (contact !== undefined) {
 					view = new Edit.Contact({
-						model: contact
+						model: contact,
+						generateTitle: true
 					});
 
 					view.on('form:submit', data => {

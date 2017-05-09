@@ -16,7 +16,27 @@ ContactManager.on('before:start', () => {
 			dialog: '#dialog-region'
 		}
 	});
+
 	ContactManager.regions = new RegionContainer();
+	ContactManager.regions.dialog.onShow = function(view) {
+		const self = this;
+		const closeDialog = () => {
+			self.stopListening();
+			self.empty();
+			self.$el.dialog('destroy');
+		};
+
+		this.listenTo(view, 'dialog:close', closeDialog);
+
+		this.$el.dialog({
+			modal: true,
+			title: view.title,
+			width: 'auto',
+			close(e, ui) {
+				closeDialog();
+			}
+		});
+	};
 });
 
 ContactManager.on('start', function() {
