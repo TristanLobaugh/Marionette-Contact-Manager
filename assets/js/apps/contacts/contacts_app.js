@@ -10,12 +10,15 @@ ContactManager.module('ContactsApp', (ContactsApp, ContactManager, Backbone, Mar
 	const API = {
 		listContacts(criterion) {
 			ContactsApp.List.Controller.listContacts(criterion);
+			ContactManager.execute('set:active:header', 'contacts');
 		},
 		showContact(id) {
 			ContactsApp.Show.Controller.showContact(id);
+			ContactManager.execute('set:active:header', 'contacts');
 		},
 		editContact(id) {
 			ContactsApp.Edit.Controller.editContact(id);
+			ContactManager.execute('set:active:header', 'contacts');
 		}
 	};
 

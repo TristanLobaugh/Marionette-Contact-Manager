@@ -1,4 +1,4 @@
-ContactManager.module('Entities', (Entities, ContactManager, backbone, Marionette, $, _) => {
+ContactManager.module('Entities', (Entities, ContactManager, Backbone, Marionette, $, _) => {
 	Entities.FilteredCollection = options => {
 		const original = options.collection;
 		const filtered = new original.constructor();

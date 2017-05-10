@@ -8,6 +8,7 @@ ContactManager.module('AboutApp', (AboutApp, ContactManager, Backbone, Marionett
 	const API = {
 		showAbout() {
 			AboutApp.Show.Controller.showAbout();
+			ContactManager.execute('set:active:header', 'about');
 		}
 	};
 
